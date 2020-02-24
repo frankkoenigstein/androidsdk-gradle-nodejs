@@ -1,6 +1,6 @@
 name: Docker Push CI
 
-on: [push]
+on: [release]
 
 jobs:  
   push:
