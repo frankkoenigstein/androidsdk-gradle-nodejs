@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Docker login
-        run: echo $DOCKER_PASS && echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+        run: echo "pass: $DOCKER_PASS"
       
       - name: Docker tag
         run: docker image tag frooooonk/androidsdk-gradle-nodejs frooooonk/androidsdk-gradle-nodejs:$GITHUB_REF
