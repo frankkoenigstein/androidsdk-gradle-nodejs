@@ -1,6 +1,6 @@
 name: Docker Push CI
 
-on: [push]
+on: [release]
 
 jobs:  
   push:
@@ -8,5 +8,11 @@ jobs:
     
     steps:
       - uses: actions/checkout@v2
-      - name: Push Docker image
+      - name: Docker login
         run: echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin
+      
+      - name: Docker tag
+        run: docker image tag frooooonk/androidsdk-gradle-nodejs frooooonk/androidsdk-gradle-nodejs:${GITHUB_REF}
+        
+      - name: Docker push
+        run: docker push frooooonk/androidsdk-gradle-nodejs:${GITHUB_REF}
