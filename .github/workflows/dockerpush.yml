@@ -1,0 +1,12 @@
+name: Docker Push CI
+
+on: [push]
+
+jobs:  
+  push:
+    runs-on: [ubuntu-latest]
+    
+    steps:
+      - uses: actions/checkout@v2
+      - name: Push Docker image
+        run: echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin
