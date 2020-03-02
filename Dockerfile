@@ -10,7 +10,7 @@ ARG NODEJS_VERSION="12.16.1"
 ARG GRADLE_VERSION="6.2"
 
 # labels
-LABEL version = "1.0.0"
+LABEL version = "1.0.1"
 LABEL description = "android-sdk@${ANDROID_SDK_TOOLS} + gradle@${GRADLE_VERSION} + nodejs@${NODEJS_VERSION}"
 
 # env
@@ -37,21 +37,19 @@ ARG DOWNLOAD_URL_GRADLE="https://services.gradle.org/distributions/${DOWNLOAD_FI
 RUN apt-get --quiet update --yes \
   && apt-get --quiet install --yes --no-install-recommends lib32stdc++6 lib32z1
 
-# download
-RUN curl -L ${DOWNLOAD_URL_ANDROID_SDK_TOOLS} --output ${OPTDIR}/${DOWNLOAD_FILE_ANDROID_SDK_TOOLS}
-RUN curl -L ${DOWNLOAD_URL_NODE} --output ${OPTDIR}/${DOWNLOAD_FILE_NODE}
-RUN curl -L ${DOWNLOAD_URL_GRADLE} --output ${OPTDIR}/${DOWNLOAD_FILE_GRADLE}
-
 # check and extract
-RUN echo "${ANDROID_DOWNLOAD_SHA256} ${OPTDIR}/${DOWNLOAD_FILE_ANDROID_SDK_TOOLS}" | sha256sum --check --status \
+RUN curl -L ${DOWNLOAD_URL_ANDROID_SDK_TOOLS} --output ${OPTDIR}/${DOWNLOAD_FILE_ANDROID_SDK_TOOLS} \
+  && echo "${ANDROID_DOWNLOAD_SHA256} ${OPTDIR}/${DOWNLOAD_FILE_ANDROID_SDK_TOOLS}" | sha256sum --check --status \
   && unzip -q ${OPTDIR}/${DOWNLOAD_FILE_ANDROID_SDK_TOOLS} -d ${ANDROID_SDK_ROOT} \
   && rm ${OPTDIR}/${DOWNLOAD_FILE_ANDROID_SDK_TOOLS}
 
-RUN echo "${NODE_DOWNLOAD_SHA256} ${OPTDIR}/${DOWNLOAD_FILE_NODE}" | sha256sum --check --status \
+RUN curl -L ${DOWNLOAD_URL_NODE} --output ${OPTDIR}/${DOWNLOAD_FILE_NODE} \
+  && echo "${NODE_DOWNLOAD_SHA256} ${OPTDIR}/${DOWNLOAD_FILE_NODE}" | sha256sum --check --status \
   && tar xf ${OPTDIR}/${DOWNLOAD_FILE_NODE} -C ${OPTDIR} \
   && rm ${OPTDIR}/${DOWNLOAD_FILE_NODE}
 
-RUN echo "${GRADLE_DOWNLOAD_SHA256} ${OPTDIR}/${DOWNLOAD_FILE_GRADLE}" | sha256sum --check --status \
+RUN curl -L ${DOWNLOAD_URL_GRADLE} --output ${OPTDIR}/${DOWNLOAD_FILE_GRADLE} \
+  && echo "${GRADLE_DOWNLOAD_SHA256} ${OPTDIR}/${DOWNLOAD_FILE_GRADLE}" | sha256sum --check --status \
   && unzip -q ${OPTDIR}/${DOWNLOAD_FILE_GRADLE} -d ${OPTDIR} \
   && rm ${OPTDIR}/${DOWNLOAD_FILE_GRADLE}
 
