@@ -5,6 +5,7 @@
 <!-- TOC depthFrom:2 -->
 
 - [Changelog](#changelog)
+  - [v1.0.1](#v101)
   - [v1.0.0](#v100)
 
 <!-- /TOC -->
@@ -14,6 +15,10 @@ Combines android sdk gradle and nodejs.
 Based on [openjdk:8-jdk].
 
 ## Changelog
+
+### v1.0.1
+
+- build: Reduce layers and image size
 
 ### v1.0.0
 
