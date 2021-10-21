@@ -3,30 +3,30 @@ FROM openjdk:8-jdk
 ARG OPTDIR="/opt"
 
 # versions
-ARG ANDROID_COMPILE_SDK="28"
-ARG ANDROID_BUILD_TOOLS="29.0.2"
-ARG ANDROID_SDK_TOOLS="4333796"
-ARG NODEJS_VERSION="12.16.1"
-ARG GRADLE_VERSION="6.2"
+ARG ANDROID_COMPILE_SDK="31"
+ARG ANDROID_BUILD_TOOLS="31.0.0"
+ARG ANDROID_SDK_TOOLS="7583922"
+ARG NODEJS_VERSION="14.18.1"
+ARG GRADLE_VERSION="7.2"
 
 # labels
-LABEL version = "1.0.0"
+LABEL version = "2.0.0"
 LABEL description = "android-sdk@${ANDROID_SDK_TOOLS} + gradle@${GRADLE_VERSION} + nodejs@${NODEJS_VERSION}"
 
 # env
 ENV GRADLE_HOME "${OPTDIR}/gradle-${GRADLE_VERSION}"
 ENV ANDROID_SDK_ROOT "${OPTDIR}/android-sdk"
-ENV PATH "$PATH:${ANDROID_SDK_ROOT}/platform-tools:${ANDROID_SDK_ROOT}/tools/bin:${ANDROID_SDK_ROOT}/build-tools/${ANDROID_BUILD_TOOLS}:${OPTDIR}/gradle-${GRADLE_VERSION}/bin:${OPTDIR}/node-v${NODEJS_VERSION}-linux-x64/bin"
+ENV PATH "$PATH:${ANDROID_SDK_ROOT}/cmdline-tools/bin:${ANDROID_SDK_ROOT}/platform-tools:${ANDROID_SDK_ROOT}/tools/bin:${ANDROID_SDK_ROOT}/build-tools/${ANDROID_BUILD_TOOLS}:${OPTDIR}/gradle-${GRADLE_VERSION}/bin:${OPTDIR}/node-v${NODEJS_VERSION}-linux-x64/bin"
 
 # files
-ARG DOWNLOAD_FILE_ANDROID_SDK_TOOLS="sdk-tools-linux-${ANDROID_SDK_TOOLS}.zip"
+ARG DOWNLOAD_FILE_ANDROID_SDK_TOOLS="commandlinetools-linux-${ANDROID_SDK_TOOLS}_latest.zip"
 ARG DOWNLOAD_FILE_NODE="node-v${NODEJS_VERSION}-linux-x64.tar.gz"
 ARG DOWNLOAD_FILE_GRADLE="gradle-${GRADLE_VERSION}-bin.zip"
 
 # sha256
-ARG ANDROID_DOWNLOAD_SHA256="92ffee5a1d98d856634e8b71132e8a95d96c83a63fde1099be3d86df3106def9"
-ARG NODE_DOWNLOAD_SHA256="b2d9787da97d6c0d5cbf24c69fdbbf376b19089f921432c5a61aa323bc070bea"
-ARG GRADLE_DOWNLOAD_SHA256="b93a5f30d01195ec201e240f029c8b42d59c24086b8d1864112c83558e23cf8a"
+ARG ANDROID_DOWNLOAD_SHA256="124f2d5115eee365df6cf3228ffbca6fc3911d16f8025bebd5b1c6e2fcfa7faf"
+ARG NODE_DOWNLOAD_SHA256="088498c67bab31871a1cab40dbc9b7b82c1abf53a2cf740e061bd6033a74839d"
+ARG GRADLE_DOWNLOAD_SHA256="f581709a9c35e9cb92e16f585d2c4bc99b2b1a5f85d2badbd3dc6bff59e1e6dd"
 
 # download urls
 ARG DOWNLOAD_URL_ANDROID_SDK_TOOLS="https://dl.google.com/android/repository/${DOWNLOAD_FILE_ANDROID_SDK_TOOLS}"
@@ -56,11 +56,11 @@ RUN echo "${GRADLE_DOWNLOAD_SHA256} ${OPTDIR}/${DOWNLOAD_FILE_GRADLE}" | sha256s
   && rm ${OPTDIR}/${DOWNLOAD_FILE_GRADLE}
 
 # install android tools and platform
-RUN echo y | sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" > /dev/null
-RUN echo y | sdkmanager "platform-tools" > /dev/null
-RUN echo y | sdkmanager "build-tools;${ANDROID_BUILD_TOOLS}" > /dev/null
+RUN echo y | sdkmanager --sdk_root=$ANDROID_SDK_ROOT "platforms;android-${ANDROID_COMPILE_SDK}" > /dev/null
+RUN echo y | sdkmanager --sdk_root=$ANDROID_SDK_ROOT "platform-tools" > /dev/null
+RUN echo y | sdkmanager --sdk_root=$ANDROID_SDK_ROOT "build-tools;${ANDROID_BUILD_TOOLS}" > /dev/null
 
-RUN yes | sdkmanager --licenses > /dev/null
+RUN yes | sdkmanager --sdk_root=$ANDROID_SDK_ROOT --licenses > /dev/null
 
 # apt clean
 RUN rm -rf /var/lib/apt/lists/*
