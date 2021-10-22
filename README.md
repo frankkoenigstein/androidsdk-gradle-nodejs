@@ -36,4 +36,4 @@ ARG NODEJS_VERSION="12.16.1"
 ARG GRADLE_VERSION="6.2"
 ```
 
-[openjdk:8-jdk]: https://hub.docker.com/layers/openjdk/library/openjdk/8-jdk/images/sha256-c97da5d8034c364a3cc5ef02b6ca32febf4c777e42e5b1291079fe3271e4cff7?context=explore
+[openjdk:8-jdk]: https://hub.docker.com/_/openjdk/?tab=tags&page=1&name=8-jdk
