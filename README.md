@@ -5,6 +5,7 @@
 <!-- TOC depthFrom:2 -->
 
 - [Changelog](#changelog)
+  - [2.0.2](#202)
   - [v2.0.0](#v200)
   - [v1.0.0](#v100)
 
@@ -15,6 +16,16 @@ Combines android sdk gradle and nodejs.
 Based on [openjdk:8-jdk].
 
 ## Changelog
+
+### 2.0.2
+
+```dockerfile
+ARG ANDROID_COMPILE_SDK="30"
+ARG ANDROID_BUILD_TOOLS="30.0.3"
+ARG ANDROID_SDK_TOOLS="7583922"
+ARG NODEJS_VERSION="14.18.1"
+ARG GRADLE_VERSION="7.2"
+```
 
 ### v2.0.0
 
