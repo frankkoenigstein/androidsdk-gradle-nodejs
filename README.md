@@ -5,8 +5,8 @@
 <!-- vscode-markdown-toc -->
 
 - [Changelog](#Changelog)
-  - [2.1.0](#)
-  - [2.0.2](#-1)
+  - [2.1.0](#2.1.0)
+  - [2.0.2](#2.0.2)
   - [v2.0.0](#v2.0.0)
   - [v1.0.0](#v1.0.0)
 
@@ -22,7 +22,7 @@ Based on [openjdk:8-jdk].
 
 ## Changelog
 
-### 2.1.0
+### v2.1.0
 
 ```dockerfile
 ARG ANDROID_COMPILE_SDK="32"
@@ -32,7 +32,7 @@ ARG NODEJS_VERSION="16.15.0"
 ARG GRADLE_VERSION="7.4.2"
 ```
 
-### 2.0.2
+### v2.0.2
 
 ```dockerfile
 ARG ANDROID_COMPILE_SDK="30"
